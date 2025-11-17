@@ -19,11 +19,7 @@ public class UserService {
     }
 
     public boolean authenticate(String login, String password) {
-      
-        // TODO
-        
-        
-        return false;
+    return USERS.get(login).equals(password);
         
     }
 }
