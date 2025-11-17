@@ -46,10 +46,36 @@ import javax.servlet.http.HttpSession;
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String action = request.getPathInfo(); // ex : "/logoff" ou "/panier" ou null
+    if (action == null || "/".equals(action)) {
+        // page par défaut
         response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
+    switch (action) {
+        case "/logoff":
+            doLogoff(request, response);
+            break;
+        case "/panier":
+            showPanier(request, response);
+            break;
+        default:
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    }
+}
+    protected void showPanier(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        
+    }
+       protected void doLogoff(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("userLogin");
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        
     }
 }
 

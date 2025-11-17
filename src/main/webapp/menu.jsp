@@ -12,6 +12,10 @@
         <title>menu</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h3>Menu</h3>
+        
+        <a href="${pageContext.request.contextPath}/controler/panier"> voir panier</a>
+        <a href="${pageContext.request.contextPath}/controler/ajouter"> ajouter un article</a>
+        <a href="${pageContext.request.contextPath}/controler/logoff"> déconnexion</a>
     </body>
 </html>
