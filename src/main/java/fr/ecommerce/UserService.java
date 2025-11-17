@@ -18,7 +18,7 @@ public class UserService {
         USERS.put("user2", "hello");
     }
 
-    public boolean authenticate(String login, String password) {
+    public static boolean authenticate(String login, String password) {
     return USERS.get(login).equals(password);
         
     }

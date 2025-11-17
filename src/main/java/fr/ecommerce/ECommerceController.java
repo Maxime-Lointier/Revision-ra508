@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  * Contrôleur unique de l'application e-commerce.
@@ -20,20 +22,34 @@ import java.io.IOException;
  */
 
 
-public class ECommerceController extends HttpServlet {
-
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-
-    }
+    @WebServlet("/controler") 
+    public class ECommerceController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+
+   
+        if (UserService.authenticate(login, password)) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userLogin", login);
+
+            response.sendRedirect(request.getContextPath() + "/menu.jsp");
+        } else {
+            request.setAttribute("error", "Identifiant ou mot de passe incorrect.");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
     }
 }
+

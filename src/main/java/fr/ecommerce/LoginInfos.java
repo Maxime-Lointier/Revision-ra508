@@ -1,6 +1,6 @@
 
 package fr.ecommerce;
 
-public class LoginInfos {
+public class LoginInfos { //info temporaire, une session basiquement
 
 }
